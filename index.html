@@ -8,7 +8,7 @@
 
   <style>
     :root {
-      --bg-url: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1800&q=80');
+      --bg-url: url('./background.jpg');
       --panel: rgba(10, 14, 20, 0.72);
       --line: rgba(255,255,255,0.12);
       --text: #f3f7fb;
@@ -389,11 +389,11 @@
   <div class="wrap">
     <section class="hero">
       <div class="card hero-main">
-        <div class="eyebrow">Chile x Europe • Ping Pong Night</div>
-        <div class="font-script" style="font-size:1.05rem; color: var(--accent-2); margin-bottom: 8px;">Están invitados • You are invited</div>
+        <div class="eyebrow">Chile x Europe • Pin Pon Night</div>
+        <div class="font-script" style="font-size:1.05rem; color: var(--accent-2); margin-bottom: 8px;">Invitadísim@ • You are invited</div>
         <h1 class="font-display">PIN PON<br>CAMPEONATO A MUERTE</h1>
         <p class="subtitle">
-          Un torneo amistoso en Europa con sabor chileno. Inscríbete abajo y armamos el cuadro al toque po mi rey.
+          Un torneo amistoso en München con sabor chileno. Inscríbete abajo y armamos el cuadro al toque po mi rey.
         </p>
       </div>
 
@@ -406,14 +406,14 @@
             <div class="detail"><span class="label">Lugar • Venue</span><span class="value" id="eventVenue">Patio Harthof</span></div>
             <div class="detail"><span class="label">Formato • Format</span><span class="value" id="eventFormat">Muere-Muere</span></div>
           </div>
-          <p class="note">Buena pipa, partidos intensos, y licencia oficial para picarse un poco.</p>
+          <p class="note">Buena pipa, partidos intensos, y licencia oficial para picarse un poco pero sin show.</p>
         </div>
       </div>
     </section>
 
     <section class="grid">
       <div class="card section">
-        <h2>Inscripción • Enrolment</h2>
+        <h2>Enrole</h2>
 
         <form id="playerForm">
           <div class="row single">
@@ -423,7 +423,7 @@
           <div class="row">
             <input type="text" id="team" placeholder="Equipo / city / crew (optional)" />
             <select id="level">
-              <option value="Penca">Penca• Beginner</option>
+              <option value="Penquita">Penquita• Beginner</option>
               <option value="Igual le pongo">Igual le pongo • Intermediate</option>
               <option value="Brígido">Brígid@ • Advanced</option>
             </select>
@@ -448,10 +448,6 @@
         </div>
 
         <input type="file" id="csvFileInput" accept=".csv" hidden />
-
-        <p class="note">
-          Hecho con amor por el one and only
-        </p>
       </div>
 
       <div class="card section">
@@ -590,7 +586,7 @@
       const { playerForm, levelInput } = getFormRefs();
       editingId = null;
       if (playerForm) playerForm.reset();
-      if (levelInput) levelInput.value = 'Penca';
+      if (levelInput) levelInput.value = 'Penquita';
     }
 
     function loadPlayers() {
@@ -677,7 +673,7 @@
       editingId = id;
       nameInput.value = player.name || '';
       teamInput.value = player.team || '';
-      levelInput.value = player.level || 'Penca';
+      levelInput.value = player.level || 'Penquita';
       countryInput.value = player.country || '';
       notesInput.value = player.notes || '';
 
@@ -737,7 +733,7 @@
           id: row.id || makeId(),
           name: row.name || '',
           team: row.team || '',
-          level: row.level || 'Penca',
+          level: row.level || 'Penquita',
           country: row.country || '',
           notes: row.notes || '',
           createdAt: row.createdAt || new Date().toISOString()
