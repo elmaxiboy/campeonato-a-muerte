@@ -24,13 +24,13 @@
   const copyFixtureBtn = document.getElementById('copyFixtureBtn');
   const fixtureOutput = document.getElementById('fixtureOutput');
 
-  playerForm.addEventListener('submit', onSubmit);
-  resetFormBtn.addEventListener('click', resetForm);
-  clearAllBtn.addEventListener('click', clearRoster);
-  exportCsvBtn.addEventListener('click', exportCsv);
-  csvFileInput.addEventListener('change', importCsv);
-  generateFixtureBtn.addEventListener('click', createFixtureFromCurrentPlayers);
-  copyFixtureBtn.addEventListener('click', copyFixtureText);
+  if (playerForm) playerForm.addEventListener('submit', onSubmit);
+  if (resetFormBtn) resetFormBtn.addEventListener('click', resetForm);
+  if (clearAllBtn) clearAllBtn.addEventListener('click', clearRoster);
+  if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportCsv);
+  if (csvFileInput) csvFileInput.addEventListener('change', importCsv);
+  if (generateFixtureBtn) generateFixtureBtn.addEventListener('click', createFixtureFromCurrentPlayers);
+  if (copyFixtureBtn) copyFixtureBtn.addEventListener('click', copyFixtureText);
 
   renderRoster();
   renderFixture();
@@ -66,8 +66,8 @@
 
   function resetForm() {
     editingId = null;
-    playerForm.reset();
-    levelInput.value = 'Penca';
+    if (playerForm) playerForm.reset();
+    if (levelInput) levelInput.value = 'Malit@';
   }
 
   function loadPlayers() {
@@ -100,11 +100,13 @@
   }
 
   function renderRoster() {
+    if (!roster || !rosterMeta) return;
+
     roster.innerHTML = '';
     rosterMeta.textContent = `${players.length} jugador${players.length === 1 ? '' : 'es'} inscrito${players.length === 1 ? '' : 's'}`;
 
     if (!players.length) {
-      roster.innerHTML = '<div class="note">Todavía no hay inscrit@s. Anótense arriba.</div>';
+      roster.innerHTML = '<div class="note">Todavía no hay inscritos. Anota al primero arriba.</div>';
       return;
     }
 
@@ -140,7 +142,7 @@
     editingId = id;
     nameInput.value = player.name || '';
     teamInput.value = player.team || '';
-    levelInput.value = player.level || 'Penca';
+    levelInput.value = player.level || 'Malit@';
     countryInput.value = player.country || '';
     notesInput.value = player.notes || '';
 
@@ -198,7 +200,7 @@
           id: row.id || crypto.randomUUID(),
           name: row.name || '',
           team: row.team || '',
-          level: row.level || 'Penca',
+          level: row.level || 'Malit@',
           country: row.country || '',
           notes: row.notes || '',
           createdAt: row.createdAt || new Date().toISOString()
@@ -216,6 +218,8 @@
   }
 
   function createFixtureFromCurrentPlayers() {
+    if (!fixtureOutput) return;
+
     if (players.length < 2) {
       fixtureOutput.innerHTML = '<div class="note">Se necesitan al menos 2 jugadores.</div>';
       return;
@@ -248,6 +252,8 @@
   }
 
   function renderFixture() {
+    if (!fixtureOutput) return;
+
     if (!currentFixture) {
       fixtureOutput.innerHTML = '<div class="note">Todavía no hay cuadro generado.</div>';
       return;
@@ -335,11 +341,7 @@
           match.winner = match.player2;
         } else if (match.player2 === 'BYE' && match.player1 && match.player1 !== 'BYE') {
           match.winner = match.player1;
-        } else if (
-          match.winner &&
-          match.winner !== match.player1 &&
-          match.winner !== match.player2
-        ) {
+        } else if (match.winner && match.winner !== match.player1 && match.winner !== match.player2) {
           match.winner = null;
         }
       });
@@ -429,7 +431,7 @@
   }
 
   function copyFixtureText() {
-    if (!currentFixture) return;
+    if (!currentFixture || !fixtureOutput) return;
 
     const blocks = [...fixtureOutput.querySelectorAll('.fixture-card')];
     if (!blocks.length) return;
