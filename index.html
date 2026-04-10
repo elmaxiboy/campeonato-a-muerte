@@ -482,7 +482,7 @@
         </div>
 
         <p class="note">
-          Para grupos chicos, usa todos contra todos. Para más gente, muere-muere. Si queda un número impar, el sistema mete un BYE automáticamente.
+          Para grupos chicos, usa todos contra todos. Para más gente, muere-muere. Si queda un número impar, el sistema mete un "Fuiste bueno" automáticamente.
         </p>
       </div>
 
@@ -844,7 +844,7 @@
     }
 
     function renderWinnerButton(roundIndex, matchIndex, playerSlot, playerName, winner) {
-      if (!playerName || playerName === 'BYE') return '';
+      if (!playerName || playerName === 'Fuiste bueno') return '';
 
       const isActive = winner === playerName;
       const className = isActive ? 'btn-warning' : 'btn-secondary';
@@ -868,7 +868,7 @@
 
       const match = currentFixture.rounds[roundIndex].matches[matchIndex];
       const winner = playerSlot === 1 ? match.player1 : match.player2;
-      if (!winner || winner === 'BYE') return;
+      if (!winner || winner === 'Fuiste bueno') return;
 
       match.winner = winner;
       clearFollowingRounds(roundIndex + 1);
@@ -896,11 +896,11 @@
         const round = currentFixture.rounds[roundIndex];
 
         round.matches.forEach(match => {
-          if (match.player1 === 'BYE' && match.player2 && match.player2 !== 'BYE') {
+          if (match.player1 === 'Fuiste bueno' && match.player2 && match.player2 !== 'Fuiste bueno') {
             match.winner = match.player2;
-          } else if (match.player2 === 'BYE' && match.player1 && match.player1 !== 'BYE') {
+          } else if (match.player2 === 'Fuiste bueno' && match.player1 && match.player1 !== 'Fuiste bueno') {
             match.winner = match.player1;
-          } else if (match.player1 === 'BYE' && match.player2 === 'BYE') {
+          } else if (match.player1 === 'Fuiste bueno' && match.player2 === 'Fuiste bueno') {
             match.winner = null;
           } else if (match.winner && match.winner !== match.player1 && match.winner !== match.player2) {
             match.winner = null;
@@ -942,7 +942,7 @@
 
     function generateRoundRobin(names) {
       const list = [...names];
-      if (list.length % 2 !== 0) list.push('BYE');
+      if (list.length % 2 !== 0) list.push('Fuiste bueno');
 
       const rounds = [];
       const n = list.length;
@@ -954,7 +954,7 @@
         for (let i = 0; i < half; i++) {
           const a = rotating[i];
           const b = rotating[n - 1 - i];
-          if (a !== 'BYE' && b !== 'BYE') matches.push([a, b]);
+          if (a !== 'Fuiste bueno' && b !== 'Fuiste bueno') matches.push([a, b]);
         }
         rounds.push(matches);
         rotating.splice(1, 0, rotating.pop());
@@ -966,7 +966,7 @@
     function generateKnockoutStructure(names) {
       const cleanNames = [...names];
       const bracketSize = 2 ** Math.ceil(Math.log2(cleanNames.length));
-      while (cleanNames.length < bracketSize) cleanNames.push('BYE');
+      while (cleanNames.length < bracketSize) cleanNames.push('Fuiste bueno');
 
       const rounds = [];
       const firstRound = [];
